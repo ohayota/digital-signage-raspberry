@@ -8,8 +8,8 @@ class BrightnessRModule extends RModuleClass {
   
   SPI spi;
   
-  public BrightnessRModule(Area area) {
-    super(RModule.Brightness, area);
+  public BrightnessRModule() {
+    super(RModule.Brightness);
     spi = new SPI(SPI.list()[0]);
     spi.settings(500000, SPI.MSBFIRST, SPI.MODE0);
     
@@ -62,8 +62,8 @@ class BrightnessRModule extends RModuleClass {
     return (300 <= brightnessValue);
   }
   
-  void draw() {
-    super.draw();
+  void draw(Area area) {
+    super.draw(area);
     
     push();
     

@@ -8,7 +8,6 @@ void initialize() {
   launchingScreen.setIsInitializedImages(true);
   
   busRModule = new BusRModule(
-                Area.area3,
                 "",
                 "",
                 ""
@@ -16,14 +15,12 @@ void initialize() {
   launchingScreen.setIsInitializedBus(true);
   
   gomiRModule = new GomiRModule(
-                 Area.area1,
                  "",
                  ""
                );
   launchingScreen.setIsInitializedGomi(true);
   
   weatherRModule = new WeatherRModule(
-                    Area.area1,
                     "",
                     0.0,
                     0.0,
@@ -32,7 +29,6 @@ void initialize() {
   launchingScreen.setIsInitializedWeather(true);
   
   twitterRModule = new TwitterRModule(
-                    Area.area3,
                     "",
                     "",
                     "",
@@ -45,7 +41,6 @@ void initialize() {
   temperatureRModule = new TemperatureRModule(Area.area5);
   brightnessRModule = new BrightnessRModule(Area.area6);
   openCloseRModule = new OpenCloseRModule(
-                      Area.area5,
                       23,
                       "開店しています。",
                       "閉店しています。"

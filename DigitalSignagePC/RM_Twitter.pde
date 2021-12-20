@@ -15,8 +15,8 @@ class TwitterRModule extends RModuleClass {
   
   final PGraphics background;
   
-  public TwitterRModule(Area area, String CONSUMER_KEY, String CONSUMER_KEY_SECRET, String ACCESS_TOKEN, String ACCESS_TOKEN_SECRET, String TWEET_ID) {
-    super(RModule.Twitter, area);
+  public TwitterRModule(String CONSUMER_KEY, String CONSUMER_KEY_SECRET, String ACCESS_TOKEN, String ACCESS_TOKEN_SECRET, String TWEET_ID) {
+    super(RModule.Twitter);
     this.CONSUMER_KEY = CONSUMER_KEY;
     this.CONSUMER_KEY_SECRET = CONSUMER_KEY_SECRET;
     this.ACCESS_TOKEN = ACCESS_TOKEN;
@@ -98,8 +98,8 @@ class TwitterRModule extends RModuleClass {
     }
   }
   
-  void draw() {
-    super.draw();
+  void draw(Area area) {
+    super.draw(area);
     
     push();
     

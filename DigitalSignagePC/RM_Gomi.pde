@@ -9,8 +9,8 @@ class GomiRModule extends RModuleClass {
   
   final PGraphics background;
   
-  public GomiRModule(Area area, String GOMI_API_URL, String LOCATION) {
-    super(RModule.Gomi, area);
+  public GomiRModule(String GOMI_API_URL, String LOCATION) {
+    super(RModule.Gomi);
     this.GOMI_API_URL = GOMI_API_URL;
     this.LOCATION = LOCATION;
     this.background = generateBackground();
@@ -84,8 +84,8 @@ class GomiRModule extends RModuleClass {
     }
   }
   
-  void draw() {
-    super.draw();
+  void draw(Area area) {
+    super.draw(area);
     
     push();
     

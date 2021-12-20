@@ -16,8 +16,8 @@ class BusRModule extends RModuleClass {
   
   final PGraphics background;
   
-  public BusRModule(Area area, String BUS_API_URL, String BUSSTOP_START, String BUSSTOP_END) {
-    super(RModule.Bus, area);
+  public BusRModule(String BUS_API_URL, String BUSSTOP_START, String BUSSTOP_END) {
+    super(RModule.Bus);
     this.BUS_API_URL = BUS_API_URL;
     this.BUSSTOP_START = BUSSTOP_START;
     this.BUSSTOP_END = BUSSTOP_END;
@@ -113,8 +113,8 @@ class BusRModule extends RModuleClass {
     }
   }
   
-  public void draw() {
-    super.draw();
+  public void draw(Area area) {
+    super.draw(area);
     
     push();
     

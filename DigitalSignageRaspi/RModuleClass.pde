@@ -1,12 +1,11 @@
 public class RModuleClass {
   
   protected final RModule rModule;
-  protected final Area area;
   protected final RModuleSize size;
   private final PGraphics shadow;
   
-  protected final int x;
-  protected final int y;
+  protected int x;
+  protected int y;
   protected final int w;
   protected final int h;
   
@@ -16,12 +15,9 @@ public class RModuleClass {
   private final int SHADOW_PADDING = 20;
   private final int MODULE_RECT_ROUND = 30;
   
-  protected RModuleClass(RModule rModule, Area area) {
+  protected RModuleClass(RModule rModule) {
     this.rModule = rModule;
-    this.area = area;
     this.size = rModule.getSize();
-    this.x = area.getLayoutGuideX();
-    this.y = area.getLayoutGuideY();
     this.w = rModule.getSize().getRModuleWidth();
     this.h = rModule.getSize().getRModuleHeight();
     this.shadow = moduleShadowImage(size);
@@ -64,9 +60,11 @@ public class RModuleClass {
     return shadow;
   }
   
-  void draw() {
+  void draw(Area area) {
     push();
     
+    this.x = area.getLayoutGuideX();
+    this.y = area.getLayoutGuideY();
     image(shadow, x-SHADOW_PADDING, y-SHADOW_PADDING);
     
     pop();

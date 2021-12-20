@@ -11,8 +11,8 @@ class WeatherRModule extends RModuleClass {
   
   final PGraphics background;
   
-  public WeatherRModule(Area area, String WEATHER_API_KEY, float LATITUDE, float LONGITUDE, String LOCATION) {
-    super(RModule.Weather, area);
+  public WeatherRModule(String WEATHER_API_KEY, float LATITUDE, float LONGITUDE, String LOCATION) {
+    super(RModule.Weather);
     this.WEATHER_API_KEY = WEATHER_API_KEY;
     this.LATITUDE = LATITUDE;
     this.LONGITUDE = LONGITUDE;
@@ -59,8 +59,8 @@ class WeatherRModule extends RModuleClass {
     }
   }
   
-  void draw() {
-    super.draw();
+  void draw(Area area) {
+    super.draw(area);
     
     push();
     

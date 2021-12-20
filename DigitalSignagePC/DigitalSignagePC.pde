@@ -92,15 +92,15 @@ void drawModules() {
   
   if (state.getNowPageID() == 0) {
     background.draw();
-    weatherRModule.draw();
-    busRModule.draw();
-    temperatureRModule.draw();
-    brightnessRModule.draw();
+    weatherRModule.draw(Area.area1);
+    busRModule.draw(Area.area3);
+    temperatureRModule.draw(Area.area5);
+    brightnessRModule.draw(Area.area6);
   } else if (state.getNowPageID() == 1) {
     background.draw();
-    gomiRModule.draw();
-    twitterRModule.draw();
-    openCloseRModule.draw();
+    gomiRModule.draw(Area.area1);
+    twitterRModule.draw(Area.area3);
+    openCloseRModule.draw(Area.area5);
   } else if (state.getNowPageID() == 2) {
     adImage[0].draw();
   } else if (state.getNowPageID() == 3) {

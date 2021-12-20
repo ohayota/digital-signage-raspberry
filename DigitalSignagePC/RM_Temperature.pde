@@ -6,8 +6,8 @@ class TemperatureRModule extends RModuleClass {
   
   //final I2C i2c;
   
-  public TemperatureRModule(Area area) {
-    super(RModule.Temperature, area);
+  public TemperatureRModule() {
+    super(RModule.Temperature);
     //i2c = new I2C(I2C.list()[0]);
     
     this.background = generateBackground();
@@ -47,8 +47,8 @@ class TemperatureRModule extends RModuleClass {
     }
   }
   
-  void draw() {
-    super.draw();
+  void draw(Area area) {
+    super.draw(area);
     
     push();
     

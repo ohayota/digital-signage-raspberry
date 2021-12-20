@@ -9,8 +9,8 @@ class OpenCloseRModule extends RModuleClass {
   final String OPEN_DESCRIPTION;
   final String CLOSE_DESCRIPTION;
   
-  public OpenCloseRModule(Area area, int SWITCH_PIN, String OPEN_DESCRIPTION, String CLOSE_DESCRIPTION) {
-    super(RModule.OpenClose, area);
+  public OpenCloseRModule(int SWITCH_PIN, String OPEN_DESCRIPTION, String CLOSE_DESCRIPTION) {
+    super(RModule.OpenClose);
     this.SWITCH_PIN = SWITCH_PIN;
     this.OPEN_DESCRIPTION = OPEN_DESCRIPTION;
     this.CLOSE_DESCRIPTION = CLOSE_DESCRIPTION;
@@ -61,8 +61,8 @@ class OpenCloseRModule extends RModuleClass {
     }
   }
   
-  void draw() {
-    super.draw();
+  void draw(Area area) {
+    super.draw(area);
     
     push();
     
