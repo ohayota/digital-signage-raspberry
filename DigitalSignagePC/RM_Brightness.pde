@@ -1,7 +1,7 @@
 class BrightnessRModule extends RModuleClass {
   
   boolean isBright = true;
-  float brightnessRate = 0.0;
+  float brightnessPercent = 0.0;
   
   final PGraphics background;
   final PGraphics backgroundNotBright;
@@ -51,6 +51,7 @@ class BrightnessRModule extends RModuleClass {
       //byte[] in = spi.transfer(out);
       //int brightnessValue = ((in[0] << 8) + in[1]) & 0x3FF;
       //isBright = judgeIsBrightness(brightnessValue);
+      //brightnessPercent = brightnessValue * 100 / 1023.0;
       //println("updateBrightness(): brightnessValue=" + brightnessValue, "isBright=" + isBright);
       //super.isUpdated = true;
     } catch (Exception e) {
@@ -78,7 +79,7 @@ class BrightnessRModule extends RModuleClass {
     
     if (isUpdated) {
       // 温度表示
-      drawText(CENTER, BASELINE, state.WHITE_COLOR, 96, int(brightnessRate)+"%", x+w/2, y+150);
+      drawText(CENTER, BASELINE, state.WHITE_COLOR, 96, int(brightnessPercent)+"%", x+w/2, y+150);
     } else {
       fill(0, 0, 0, 50);
       noStroke();
