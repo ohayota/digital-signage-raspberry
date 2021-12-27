@@ -1,10 +1,10 @@
 class State {
   
   private int nowPageID = -1; // -1は起動画面、0以上は各ページに対応
-  final int STAY_SECOND = 10; // 1つの画面に留まる秒数（60の約数）
-  final int PAGE_ALL_COUNT = 4; // 表示するすべての画面（ページ）の合計枚数
-  final int AD_IMAGE_COUNT = 2;
-  final int MODULE_RECT_ROUND = 30;
+  final int STAY_SECOND; // 1つの画面に留まる秒数（60の約数）
+  final int PAGE_ALL_COUNT; // 表示するすべての画面（ページ）の合計枚数
+  final int AD_IMAGE_COUNT;
+  final int MODULE_RECT_ROUND;
   
   final color WHITE_COLOR;
   final color NEARLY_WHITE_COLOR;
@@ -14,7 +14,12 @@ class State {
   final color GRAY_COLOR;
   final color GREEN_COLOR;
   
-  public State() {
+  public State(int STAY_SECOND, int PAGE_ALL_COUNT, int AD_IMAGE_COUNT, int MODULE_RECT_ROUND) {
+    this.STAY_SECOND = STAY_SECOND;
+    this.PAGE_ALL_COUNT = PAGE_ALL_COUNT;
+    this.AD_IMAGE_COUNT = AD_IMAGE_COUNT;
+    this.MODULE_RECT_ROUND = MODULE_RECT_ROUND;
+    
     WHITE_COLOR = color(0, 0, 100);
     NEARLY_WHITE_COLOR = color(100, 2, 98);
     NEARLY_GREEN_COLOR = color(100, 5, 98);
