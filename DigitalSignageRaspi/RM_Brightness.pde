@@ -1,7 +1,7 @@
 class BrightnessRModule extends RModuleClass {
   
-  boolean isBright = true;
-  float brightnessPercent = 0.0;
+  private boolean isBright = true;
+  private float brightnessPercent = 0.0;
   
   final PGraphics background;
   final PGraphics backgroundNotBright;
@@ -19,7 +19,7 @@ class BrightnessRModule extends RModuleClass {
     this.update();
   }
   
-  PGraphics generateBackground() {
+  private PGraphics generateBackground() {
     PGraphics pg = createGraphics(w, h);
     pg.beginDraw();
     pg.colorMode(HSB, 360, 100, 100, 100);
@@ -59,11 +59,11 @@ class BrightnessRModule extends RModuleClass {
     }
   }
   
-  boolean judgeIsBrightness(int brightnessValue) {
+  private boolean judgeIsBrightness(int brightnessValue) {
     return (300 <= brightnessValue);
   }
   
-  void draw(Area area) {
+  public void draw(Area area) {
     super.draw(area);
     
     push();

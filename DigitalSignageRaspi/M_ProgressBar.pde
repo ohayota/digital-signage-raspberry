@@ -6,7 +6,7 @@ class ProgressBarModule {
     this.BAR_HEIGHT = BAR_HEIGHT;
   }
   
-  void draw() {
+  private void draw() {
     push();
     
     // 残り秒数を割合として算出（%）

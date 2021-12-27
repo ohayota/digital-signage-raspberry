@@ -4,20 +4,21 @@ class GomiRModule extends RModuleClass {
   final String GOMI_API_URL;
   final String LOCATION;
   
-  String[] gomiDows = new String[7];
-  GomiTarget[] gomiTargets = new GomiTarget[7];
+  private String[] gomiDows = new String[7];
+  private GomiTarget[] gomiTargets = new GomiTarget[7];
   
   final PGraphics background;
   
-  public GomiRModule(String GOMI_API_URL, String LOCATION) {
+  public GomiRModule(processing.data.JSONObject json) {
     super(RModule.Gomi);
-    this.GOMI_API_URL = GOMI_API_URL;
-    this.LOCATION = LOCATION;
+    json = json.getJSONObject(rModule.getName());
+    this.GOMI_API_URL = json.getString("GOMI_API_URL");
+    this.LOCATION = json.getString("LOCATION");
     this.background = generateBackground();
     this.update();
   }
   
-  PGraphics generateBackground() {
+  private PGraphics generateBackground() {
     PGraphics pg = createGraphics(w, h);
     pg.beginDraw();
     pg.colorMode(HSB, 360, 100, 100, 100);
@@ -84,7 +85,7 @@ class GomiRModule extends RModuleClass {
     }
   }
   
-  void draw(Area area) {
+  public void draw(Area area) {
     super.draw(area);
     
     push();
@@ -92,7 +93,7 @@ class GomiRModule extends RModuleClass {
     // 背景表示
     image(this.background, x, y, w, h);
     
-    drawText(LEFT, BASELINE, state.WHITE_COLOR, 32, LOCATION+"のごみカレンダー", x+50, y+50);
+    drawText(LEFT, BASELINE, state.WHITE_COLOR, 32, "ごみカレンダー（"+LOCATION+"）", x+50, y+50);
     drawText(LEFT, BASELINE, state.WHITE_COLOR, 16, "ごみカレンダー提供元: Code for Hakodate", x+50, y+100);
     
     if (this.isUpdated) {
