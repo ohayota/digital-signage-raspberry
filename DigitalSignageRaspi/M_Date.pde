@@ -16,16 +16,15 @@ public class DateModule {
     initialize();
   }
   
-  void initialize() {
+  public void initialize() {
     updateDate();
-    beforeDay = day();
-    beforeSecond = second();
-    // 祝日APIの値が取得できなければ、ネットワークかAPI側のどちらかの問題
-    if (!updateIsHoliday()) println("DateModule.initialize(): ネットワークに接続できているか確認してください。");
-    youbi = calcYoubi(year(), month(), day());
+    updateBeforeDay();
+    updateBeforeMinute();
+    updateBeforeSecond();
+    updateYoubi();
   }
   
-  void updateDate() {
+  public void updateDate() {
     year = year();
     month = month();
     day = day();
@@ -34,20 +33,26 @@ public class DateModule {
     second = second();
   }
   
-  void updateBeforeDay() {
+  public void updateBeforeDay() {
     beforeDay = day;
   }
   
-  void updateBeforeMinute() {
+  public void updateBeforeMinute() {
     beforeMinute = minute;
   }
   
-  void updateBeforeSecond() {
+  public void updateBeforeSecond() {
     beforeSecond = second;
   }
   
+  public void updateYoubi() {
+    // 祝日APIの値が取得できなければ、ネットワークかAPI側のどちらかの問題
+    if (!updateIsHoliday()) println("DateModule.updateYoubi(): ネットワークに接続できているか確認してください。");
+    youbi = calcYoubi(year(), month(), day());
+  }
+  
   // Zellerの公式を使った曜日計算
-  Youbi calcYoubi(int year, int month, int day) {
+  private Youbi calcYoubi(int year, int month, int day) {
     final Youbi[] youbi = Youbi.values();
     if (month < 3) {
       year--;
@@ -79,7 +84,7 @@ public class DateModule {
     return true;
   }
   
-  void draw() {
+  public void draw() {
     push();
     
     blendMode(EXCLUSION);
