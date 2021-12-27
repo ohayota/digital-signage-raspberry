@@ -80,7 +80,6 @@ void setup() {
   thread("initialize");
 } //<>//
  //<>//
-
 void draw() {
   if (state.getNowPageID() == -1) {
     background.draw();
@@ -134,9 +133,8 @@ void updateDatas() {
   // 日付が更新されたら実行する
   if (isUpdatedDay) {
     println("日付が変わりました。");
-    if (dateModule.updateIsHoliday() == false) {
-      println("ネットワークに接続できていない可能性があります。接続できているか確認してください。");
-    }
+    dateModule.updateYoubi();
+    
     busRModule.update();
     gomiRModule.update();
     
