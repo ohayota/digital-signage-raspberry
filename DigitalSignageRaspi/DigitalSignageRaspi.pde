@@ -58,12 +58,7 @@ void setup() {
   colorMode(HSB, 360, 100, 100, 100);
   
   final processing.data.JSONObject stateSettingJSON = loadJSONObject("setting.json").getJSONObject("State");
-  state = new State(
-            stateSettingJSON.getInt("STAY_SECOND"),
-            stateSettingJSON.getInt("PAGE_ALL_COUNT"),
-            stateSettingJSON.getInt("AD_IMAGE_COUNT"),
-            stateSettingJSON.getInt("MODULE_RECT_ROUND")
-          );
+  state = new State(stateSettingJSON);
   
   // OSによりインストールしたフォントの名称が微妙に異なるため、必要な方のみ使う
   //textFont(createFont("NotoSansCJKjp-Bold", 32)); // Mac
@@ -83,8 +78,8 @@ void setup() {
 
 void draw() {
   if (state.getNowPageID() == -1) {
-    background.draw();
-    launchingScreen.draw();
+    background.draw(); //<>//
+    launchingScreen.draw(); //<>//
   } else {
     updateDatas();
     drawModules();

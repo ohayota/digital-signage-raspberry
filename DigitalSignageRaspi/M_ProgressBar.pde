@@ -2,11 +2,11 @@ class ProgressBarModule {
   
   final int BAR_HEIGHT;
   
-  public ProgressBarModule(int BAR_HEIGHT) {
-    this.BAR_HEIGHT = BAR_HEIGHT;
+  public ProgressBarModule(processing.data.JSONObject json) {
+    this.BAR_HEIGHT = json.getJSONObject("ProgressBarModule").getInt("BAR_HEIGHT");
   }
   
-  private void draw() {
+  public void draw() {
     push();
     
     // 残り秒数を割合として算出（%）
