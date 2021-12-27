@@ -1,6 +1,6 @@
 class TemperatureRModule extends RModuleClass {
   
-  float roomTempValue = 20.0;
+  private float roomTempValue = 20.0;
   
   final PGraphics background;
   
@@ -14,7 +14,7 @@ class TemperatureRModule extends RModuleClass {
     this.update();
   }
   
-  PGraphics generateBackground() {
+  private PGraphics generateBackground() {
     PGraphics pg = createGraphics(w, h);
     pg.beginDraw();
     pg.colorMode(HSB, 360, 100, 100, 100);
@@ -27,7 +27,7 @@ class TemperatureRModule extends RModuleClass {
     return pg;
   }
   
-  void update() {
+  public void update() {
     try {
       i2c.beginTransmission(0x48);
       i2c.write(0xC0);
@@ -47,7 +47,7 @@ class TemperatureRModule extends RModuleClass {
     }
   }
   
-  void draw(Area area) {
+  public void draw(Area area) {
     super.draw(area);
     
     push();

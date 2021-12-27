@@ -80,6 +80,7 @@ void setup() {
   thread("initialize");
 } //<>//
  //<>//
+
 void draw() {
   if (state.getNowPageID() == -1) {
     background.draw();

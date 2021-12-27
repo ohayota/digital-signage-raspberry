@@ -11,15 +11,18 @@ public class RModuleClass {
   
   protected boolean isUpdated;
   
-  private final int SHADOW_ALPHA = 40;
-  private final int SHADOW_PADDING = 20;
-  private final int MODULE_RECT_ROUND = 30;
+  private final int SHADOW_ALPHA;
+  private final int SHADOW_PADDING;
+  private final int MODULE_RECT_ROUND;
   
   protected RModuleClass(RModule rModule) {
     this.rModule = rModule;
     this.size = rModule.getSize();
     this.w = rModule.getSize().getRModuleWidth();
     this.h = rModule.getSize().getRModuleHeight();
+    this.SHADOW_ALPHA = state.SHADOW_ALPHA;
+    this.SHADOW_PADDING = state.SHADOW_PADDING;
+    this.MODULE_RECT_ROUND = state.MODULE_RECT_ROUND;
     this.shadow = moduleShadowImage(size);
   }
   

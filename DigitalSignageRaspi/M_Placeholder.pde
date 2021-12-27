@@ -1,12 +1,12 @@
 class Placeholder {
   
-  PGraphics placeholder;
+  private PGraphics placeholder;
   
   public Placeholder() {
     this.initialize();
   }
   
-  void initialize() {
+  public void initialize() {
     PGraphics pg = createGraphics(width, height);
   
     pg.beginDraw();
@@ -31,7 +31,7 @@ class Placeholder {
     this.placeholder = pg;
   }
   
-  void draw() {
+  public void draw() {
     push();
     
     image(this.placeholder, 0, 0);

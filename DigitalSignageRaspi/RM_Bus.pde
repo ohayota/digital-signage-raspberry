@@ -6,27 +6,28 @@ class BusRModule extends RModuleClass {
   final PImage busMap;
   
   private String title;
-  String[] lineNames;
-  int[] departureHours;
-  int[] departureMinutes;
+  private String[] lineNames;
+  private int[] departureHours;
+  private int[] departureMinutes;
   
-  ArrayList<String> nearly2BusTimeString;
-  ArrayList<Integer> nearly2BusRemainMinutes;
-  ArrayList<String> nearly2BusLineNames;
+  private ArrayList<String> nearly2BusTimeString;
+  private ArrayList<Integer> nearly2BusRemainMinutes;
+  private ArrayList<String> nearly2BusLineNames;
   
   final PGraphics background;
   
-  public BusRModule(String BUS_API_URL, String BUSSTOP_START, String BUSSTOP_END) {
+  public BusRModule(processing.data.JSONObject json) {
     super(RModule.Bus);
-    this.BUS_API_URL = BUS_API_URL;
-    this.BUSSTOP_START = BUSSTOP_START;
-    this.BUSSTOP_END = BUSSTOP_END;
+    json = json.getJSONObject(rModule.getName());
+    this.BUS_API_URL = json.getString("BUS_API_URL");
+    this.BUSSTOP_START = json.getString("BUSSTOP_START");
+    this.BUSSTOP_END = json.getString("BUSSTOP_END");
     this.background = generateBackground();
     this.update();
     this.busMap = pImageCut(loadImage(rModule.getPath() + "bus_map.jpg"), CENTER, CENTER, 1280, 720);
   }
   
-  PGraphics generateBackground() {
+  private PGraphics generateBackground() {
     PGraphics pg = createGraphics(w, h);
     pg.beginDraw();
     pg.colorMode(HSB, 360, 100, 100, 100);
@@ -39,7 +40,7 @@ class BusRModule extends RModuleClass {
     return pg;
   }
   
-  public void refleshTop2() {
+  private void refleshTop2() {
     nearly2BusTimeString = new ArrayList<String>();
     nearly2BusRemainMinutes = new ArrayList<Integer>();
     nearly2BusLineNames = new ArrayList<String>();

@@ -15,18 +15,19 @@ class TwitterRModule extends RModuleClass {
   
   final PGraphics background;
   
-  public TwitterRModule(String CONSUMER_KEY, String CONSUMER_KEY_SECRET, String ACCESS_TOKEN, String ACCESS_TOKEN_SECRET, String TWEET_ID) {
+  public TwitterRModule(processing.data.JSONObject json) {
     super(RModule.Twitter);
-    this.CONSUMER_KEY = CONSUMER_KEY;
-    this.CONSUMER_KEY_SECRET = CONSUMER_KEY_SECRET;
-    this.ACCESS_TOKEN = ACCESS_TOKEN;
-    this.ACCESS_TOKEN_SECRET = ACCESS_TOKEN_SECRET;
-    this.TWEET_ID = Long.parseLong(TWEET_ID);
+    json = json.getJSONObject(rModule.getName());
+    this.CONSUMER_KEY = json.getString("CONSUMER_KEY");
+    this.CONSUMER_KEY_SECRET = json.getString("CONSUMER_KEY_SECRET");
+    this.ACCESS_TOKEN = json.getString("ACCESS_TOKEN");
+    this.ACCESS_TOKEN_SECRET = json.getString("ACCESS_TOKEN_SECRET");
+    this.TWEET_ID = json.getLong("TWEET_ID");
     this.background = generateBackground();
     this.update();
   }
   
-  PGraphics generateBackground() {
+  private PGraphics generateBackground() {
     PImage twitterLogo = loadImage(rModule.getPath() + "2021 Twitter logo - blue.png");
     final float logoRatio = twitterLogo.height / float(twitterLogo.width); // 縦横比
     final float logoWidth = 80.0;
@@ -41,7 +42,7 @@ class TwitterRModule extends RModuleClass {
     return pg;
   }
   
-  void update() {
+  public void update() {
     tweetImages = new PImage[3];
   
     // API関連の設定
@@ -98,7 +99,7 @@ class TwitterRModule extends RModuleClass {
     }
   }
   
-  void draw(Area area) {
+  public void draw(Area area) {
     super.draw(area);
     
     push();

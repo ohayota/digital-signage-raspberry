@@ -1,9 +1,9 @@
 class LocationModule {
   
-  private final String location;
+  final String location;
   
-  public LocationModule(String location) {
-    this.location = location;
+  public LocationModule(processing.data.JSONObject json) {
+    this.location = json.getJSONObject("LocationModule").getString("LOCATION");
   }
   
   public void draw() {

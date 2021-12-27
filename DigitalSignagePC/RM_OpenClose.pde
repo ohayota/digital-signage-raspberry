@@ -1,6 +1,6 @@
 class OpenCloseRModule extends RModuleClass {
   
-  boolean isOpen = true;
+  private boolean isOpen = true;
   
   final PGraphics background;
   final PGraphics backgroundClose;
@@ -9,11 +9,12 @@ class OpenCloseRModule extends RModuleClass {
   final String OPEN_DESCRIPTION;
   final String CLOSE_DESCRIPTION;
   
-  public OpenCloseRModule(int SWITCH_PIN, String OPEN_DESCRIPTION, String CLOSE_DESCRIPTION) {
+  public OpenCloseRModule(processing.data.JSONObject json) {
     super(RModule.OpenClose);
-    this.SWITCH_PIN = SWITCH_PIN;
-    this.OPEN_DESCRIPTION = OPEN_DESCRIPTION;
-    this.CLOSE_DESCRIPTION = CLOSE_DESCRIPTION;
+    json = json.getJSONObject(rModule.getName());
+    this.SWITCH_PIN = json.getInt("SWITCH_PIN");
+    this.OPEN_DESCRIPTION = json.getString("OPEN_DESCRIPTION");
+    this.CLOSE_DESCRIPTION = json.getString("CLOSE_DESCRIPTION");
     
     this.background = generateBackground();
     this.backgroundClose = generateBackgroundClose();
@@ -22,7 +23,7 @@ class OpenCloseRModule extends RModuleClass {
     //GPIO.pinMode(SWITCH_PIN, GPIO.INPUT);
   }
   
-  PGraphics generateBackground() {
+  private PGraphics generateBackground() {
     PGraphics pg = createGraphics(w, h);
     pg.beginDraw();
     pg.colorMode(HSB, 360, 100, 100, 100);
@@ -48,7 +49,7 @@ class OpenCloseRModule extends RModuleClass {
     return pg;
   }
   
-  void update() {
+  public void update() {
     try {
       //if (GPIO.digitalRead(SWITCH_PIN) == GPIO.LOW) {
       //  isOpen = true;
@@ -61,7 +62,7 @@ class OpenCloseRModule extends RModuleClass {
     }
   }
   
-  void draw(Area area) {
+  public void draw(Area area) {
     super.draw(area);
     
     push();

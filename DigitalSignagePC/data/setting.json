@@ -1,4 +1,5 @@
 {
+    "USER_SETTING_FILE_NAME": "setting.json",
     "BusRModule": {
         "BUS_API_URL": "",
         "BUSSTOP_START": "乗車バス停名",
@@ -19,7 +20,7 @@
         "CONSUMER_KEY_SECRET": "",
         "ACCESS_TOKEN": "",
         "ACCESS_TOKEN_SECRET": "",
-        "TWEET_ID": ""
+        "TWEET_ID": 0
     },
     "OpenCloseRModule": {
         "SWITCH_PIN": 23,
@@ -36,6 +37,8 @@
         "STAY_SECOND": 20,
         "PAGE_ALL_COUNT": 4,
         "AD_IMAGE_COUNT": 2,
+        "SHADOW_ALPHA": 40,
+        "SHADOW_PADDING": 20,
         "MODULE_RECT_ROUND": 30
     }
 }

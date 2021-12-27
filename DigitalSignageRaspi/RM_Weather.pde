@@ -1,9 +1,9 @@
 class WeatherRModule extends RModuleClass {
   
-  PImage weatherIcon;
-  float temperature = 0.0;
-  int humidity = 0;
-  String weatherString = "";
+  private PImage weatherIcon;
+  private float temperature = 0.0;
+  private int humidity = 0;
+  private String weatherString = "";
   final String WEATHER_API_KEY;
   final float LATITUDE; // 自分が天気を取得したい場所の緯度
   final float LONGITUDE; // 自分が天気を取得したい場所の経度
@@ -11,12 +11,13 @@ class WeatherRModule extends RModuleClass {
   
   final PGraphics background;
   
-  public WeatherRModule(String WEATHER_API_KEY, float LATITUDE, float LONGITUDE, String LOCATION) {
+  public WeatherRModule(processing.data.JSONObject json) {
     super(RModule.Weather);
-    this.WEATHER_API_KEY = WEATHER_API_KEY;
-    this.LATITUDE = LATITUDE;
-    this.LONGITUDE = LONGITUDE;
-    this.LOCATION = LOCATION;
+    json = json.getJSONObject(rModule.getName());
+    this.WEATHER_API_KEY = json.getString("WEATHER_API_KEY");
+    this.LATITUDE = json.getFloat("LATITUDE");
+    this.LONGITUDE = json.getFloat("LONGITUDE");
+    this.LOCATION = json.getString("LOCATION");
     this.background = generateBackground();
     this.update();
   }
@@ -32,6 +33,12 @@ class WeatherRModule extends RModuleClass {
     pg.endDraw();
     pg.mask( sizeToModuleMask( rModule.getSize() ) );
     return pg;
+  }
+  
+  private String openWeatherURL(float latitude, float longitude, String apiKey) {
+    return "https://api.openweathermap.org/data/2.5/onecall?" +
+           "lat=" + latitude + "&lon=" + longitude +
+           "&units=metric&lang=ja&appid=" + apiKey;
   }
   
   void update() {
@@ -67,7 +74,7 @@ class WeatherRModule extends RModuleClass {
     // 背景表示
     image(this.background, x, y, w, h);
     
-    drawText(LEFT, BASELINE, state.WHITE_COLOR, 32, LOCATION+"の現在の天気", x+50, y+50);
+    drawText(LEFT, BASELINE, state.WHITE_COLOR, 32, "現在の天気（"+LOCATION+"）", x+50, y+50);
     drawText(LEFT, BASELINE, state.WHITE_COLOR, 16, "気象データ提供元: OpenWeather(TM)", x+50, y+100);
     
     if (super.isUpdated) {
@@ -85,11 +92,4 @@ class WeatherRModule extends RModuleClass {
     pop();
   }
   
-}
-
-
-String openWeatherURL(float latitude, float longitude, String apiKey) {
-  return "https://api.openweathermap.org/data/2.5/onecall?" +
-         "lat=" + latitude + "&lon=" + longitude +
-         "&units=metric&lang=ja&appid=" + apiKey;
 }

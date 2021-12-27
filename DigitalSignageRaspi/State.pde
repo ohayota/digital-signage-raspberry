@@ -5,6 +5,8 @@ class State {
   final int PAGE_ALL_COUNT; // 表示するすべての画面（ページ）の合計枚数
   final int AD_IMAGE_COUNT;
   final int MODULE_RECT_ROUND;
+  final int SHADOW_ALPHA;
+  final int SHADOW_PADDING;
   
   final color WHITE_COLOR;
   final color NEARLY_WHITE_COLOR;

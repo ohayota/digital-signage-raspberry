@@ -1,5 +1,6 @@
 void initialize() {
-  final processing.data.JSONObject settingJSON = loadJSONObject("setting.json");
+  final String USER_SETTING_FILE_NAME = loadJSONObject("setting.json").getString("USER_SETTING_FILE_NAME");
+  final processing.data.JSONObject USER_SETTING_JSON = loadJSONObject(USER_SETTING_FILE_NAME);
   
   dateModule = new DateModule();
   launchingScreen.setIsInitializedDates(true);
@@ -9,50 +10,28 @@ void initialize() {
   placeholder = new Placeholder();
   launchingScreen.setIsInitializedImages(true);
   
-  busRModule = new BusRModule(
-                 settingJSON.getJSONObject(RModule.Bus.getName()).getString("BUS_API_URL"),
-                 settingJSON.getJSONObject(RModule.Bus.getName()).getString("BUSSTOP_START"),
-                 settingJSON.getJSONObject(RModule.Bus.getName()).getString("BUSSTOP_END")
-               );
+  busRModule = new BusRModule(USER_SETTING_JSON);
   launchingScreen.setIsInitializedBus(true);
   
-  gomiRModule = new GomiRModule(
-                  settingJSON.getJSONObject(RModule.Gomi.getName()).getString("GOMI_API_URL"),
-                  settingJSON.getJSONObject(RModule.Gomi.getName()).getString("LOCATION")
-                );
+  gomiRModule = new GomiRModule(USER_SETTING_JSON);
   launchingScreen.setIsInitializedGomi(true);
   
-  weatherRModule = new WeatherRModule(
-                     settingJSON.getJSONObject(RModule.Weather.getName()).getString("WEATHER_API_KEY"),
-                     settingJSON.getJSONObject(RModule.Weather.getName()).getFloat("LATITUDE"),
-                     settingJSON.getJSONObject(RModule.Weather.getName()).getFloat("LONGITUDE"),
-                     settingJSON.getJSONObject(RModule.Weather.getName()).getString("LOCATION")
-                   );
+  weatherRModule = new WeatherRModule(USER_SETTING_JSON);
   launchingScreen.setIsInitializedWeather(true);
   
-  twitterRModule = new TwitterRModule(
-                     settingJSON.getJSONObject(RModule.Twitter.getName()).getString("CONSUMER_KEY"),
-                     settingJSON.getJSONObject(RModule.Twitter.getName()).getString("CONSUMER_KEY_SECRET"),
-                     settingJSON.getJSONObject(RModule.Twitter.getName()).getString("ACCESS_TOKEN"),
-                     settingJSON.getJSONObject(RModule.Twitter.getName()).getString("ACCESS_TOKEN_SECRET"),
-                     settingJSON.getJSONObject(RModule.Twitter.getName()).getString("TWEET_ID")
-                   );
+  twitterRModule = new TwitterRModule(USER_SETTING_JSON);
   launchingScreen.setIsInitializedTwitter(true);
   
   // 残りの各モジュール初期化
   temperatureRModule = new TemperatureRModule();
   brightnessRModule = new BrightnessRModule();
   
-  openCloseRModule = new OpenCloseRModule(
-                       settingJSON.getJSONObject(RModule.OpenClose.getName()).getInt("SWITCH_PIN"),
-                       settingJSON.getJSONObject(RModule.OpenClose.getName()).getString("OPEN_DESCRIPTION"),
-                       settingJSON.getJSONObject(RModule.OpenClose.getName()).getString("CLOSE_DESCRIPTION")
-                     );
+  openCloseRModule = new OpenCloseRModule(USER_SETTING_JSON);
   
-  locationModule = new LocationModule(settingJSON.getJSONObject("LocationModule").getString("LOCATION"));
+  locationModule = new LocationModule(USER_SETTING_JSON);
   
   pageControlModule = new PageControlModule();
-  progressBarModule = new ProgressBarModule(settingJSON.getJSONObject("ProgressBarModule").getInt("BAR_HEIGHT"));
+  progressBarModule = new ProgressBarModule(USER_SETTING_JSON);
   
   delay(500);
   
