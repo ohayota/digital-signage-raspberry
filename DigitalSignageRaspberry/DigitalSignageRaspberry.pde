@@ -1,7 +1,7 @@
 final boolean TEST_MODE = false;
 
 
-//import processing.io.*;
+import processing.io.*;
 import java.net.*;
 import java.io.*;
 import twitter4j.*;
@@ -73,8 +73,8 @@ void setup() {
   }
   
   thread("initialize");
-}
-
+} //<>//
+ //<>//
 
 void draw() {
   if (state.getNowPageID() == -1) {
