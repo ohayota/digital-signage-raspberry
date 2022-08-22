@@ -16,8 +16,7 @@ class TwitterRModule extends RModuleClass {
   final PGraphics background;
   
   public TwitterRModule(processing.data.JSONObject json) {
-    super(RModule.Twitter);
-    json = json.getJSONObject(rModule.getName());
+    super(RModule.Twitter, json.getInt("PAGE_ID"), json.getInt("AREA_ID"));
     this.CONSUMER_KEY = json.getString("CONSUMER_KEY");
     this.CONSUMER_KEY_SECRET = json.getString("CONSUMER_KEY_SECRET");
     this.ACCESS_TOKEN = json.getString("ACCESS_TOKEN");
@@ -99,8 +98,8 @@ class TwitterRModule extends RModuleClass {
     }
   }
   
-  public void draw(Area area) {
-    super.draw(area);
+  public void draw() {
+    super.draw();
     
     push();
     

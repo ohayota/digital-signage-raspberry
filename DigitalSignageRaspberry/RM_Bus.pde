@@ -17,8 +17,7 @@ class BusRModule extends RModuleClass {
   final PGraphics background;
   
   public BusRModule(processing.data.JSONObject json) {
-    super(RModule.Bus);
-    json = json.getJSONObject(rModule.getName());
+    super(RModule.Bus, json.getInt("PAGE_ID"), json.getInt("AREA_ID"));
     this.BUS_API_URL = json.getString("BUS_API_URL");
     this.BUSSTOP_START = json.getString("BUSSTOP_START");
     this.BUSSTOP_END = json.getString("BUSSTOP_END");
@@ -114,8 +113,8 @@ class BusRModule extends RModuleClass {
     }
   }
   
-  public void draw(Area area) {
-    super.draw(area);
+  public void draw() {
+    super.draw();
     
     push();
     

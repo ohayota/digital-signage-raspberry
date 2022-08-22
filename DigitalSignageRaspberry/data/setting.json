@@ -1,32 +1,50 @@
 {
-    "USER_SETTING_FILE_NAME": "setting.json",
-    "BusRModule": {
-        "BUS_API_URL": "",
-        "BUSSTOP_START": "乗車バス停名",
-        "BUSSTOP_END": "降車バス停名"
-    },
-    "GomiRModule": {
-        "GOMI_API_URL": "",
-        "LOCATION": "地域名"
-    },
-    "WeatherRModule": {
-        "WEATHER_API_KEY": "",
-        "LATITUDE": 0.0,
-        "LONGITUDE": 0.0,
-        "LOCATION": "地域名"
-    },
-    "TwitterRModule": {
-        "CONSUMER_KEY": "",
-        "CONSUMER_KEY_SECRET": "",
-        "ACCESS_TOKEN": "",
-        "ACCESS_TOKEN_SECRET": "",
-        "TWEET_ID": 0
-    },
-    "OpenCloseRModule": {
-        "SWITCH_PIN": 23,
-        "OPEN_DESCRIPTION": "開店しています。",
-        "CLOSE_DESCRIPTION": "閉店しています。"
-    },
+    "USER_SETTING_FILE_NAME": "ohayota.json",
+    "BusRModule": [
+        {
+            "BUS_API_URL": "",
+            "BUSSTOP_START": "乗車バス停名",
+            "BUSSTOP_END": "降車バス停名"
+        }
+    ],
+    "GomiRModule": [
+        {
+            "GOMI_API_URL": "",
+            "LOCATION": "地域名"
+        }
+    ],
+    "WeatherRModule": [
+        {
+            "WEATHER_API_KEY": "",
+            "LATITUDE": 0.0,
+            "LONGITUDE": 0.0,
+            "LOCATION": "地域名"
+        }
+    ],
+    "TwitterRModule": [
+        {
+            "CONSUMER_KEY": "",
+            "CONSUMER_KEY_SECRET": "",
+            "ACCESS_TOKEN": "",
+            "ACCESS_TOKEN_SECRET": "",
+            "TWEET_ID": 0
+        }
+    ],
+    "OpenCloseRModule": [
+        {
+            "SWITCH_PIN": 23,
+            "OPEN_DESCRIPTION": "開店しています。",
+            "CLOSE_DESCRIPTION": "閉店しています。"
+        }
+    ],
+    "TemperatureRModule": [
+        {
+        }
+    ],
+    "BrightnessRModule": [
+        {
+        }
+    ],
     "LocationModule": {
         "LOCATION": "設置場所名"
     },

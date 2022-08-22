@@ -51,10 +51,10 @@ void testCalcYoubi() {
 void testJudgeIsBrightness() {
   boolean b;
   
-  b = brightnessRModule.judgeIsBrightness(299);
+  b = brightnessRModules.get(0).judgeIsBrightness(299);
   assert (b == false) : "Not equal false: " + b;
   
-  b = brightnessRModule.judgeIsBrightness(300);
+  b = brightnessRModules.get(0).judgeIsBrightness(300);
   assert (b == true) : "Not equal true: " + b;
   
   println("Test passed: testJudgeIsBrightness()");

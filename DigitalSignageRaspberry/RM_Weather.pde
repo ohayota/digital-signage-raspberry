@@ -12,8 +12,7 @@ class WeatherRModule extends RModuleClass {
   final PGraphics background;
   
   public WeatherRModule(processing.data.JSONObject json) {
-    super(RModule.Weather);
-    json = json.getJSONObject(rModule.getName());
+    super(RModule.Weather, json.getInt("PAGE_ID"), json.getInt("AREA_ID"));
     this.WEATHER_API_KEY = json.getString("WEATHER_API_KEY");
     this.LATITUDE = json.getFloat("LATITUDE");
     this.LONGITUDE = json.getFloat("LONGITUDE");
@@ -66,8 +65,8 @@ class WeatherRModule extends RModuleClass {
     }
   }
   
-  void draw(Area area) {
-    super.draw(area);
+  void draw() {
+    super.draw();
     
     push();
     

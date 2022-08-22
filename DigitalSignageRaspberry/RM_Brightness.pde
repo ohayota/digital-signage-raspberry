@@ -8,8 +8,8 @@ class BrightnessRModule extends RModuleClass {
   
   SPI spi;
   
-  public BrightnessRModule() {
-    super(RModule.Brightness);
+  public BrightnessRModule(processing.data.JSONObject json) {
+    super(RModule.Brightness, json.getInt("PAGE_ID"), json.getInt("AREA_ID"));
     spi = new SPI(SPI.list()[0]);
     spi.settings(500000, SPI.MSBFIRST, SPI.MODE0);
     
@@ -63,8 +63,8 @@ class BrightnessRModule extends RModuleClass {
     return (300 <= brightnessValue);
   }
   
-  public void draw(Area area) {
-    super.draw(area);
+  public void draw() {
+    super.draw();
     
     push();
     

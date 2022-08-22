@@ -6,8 +6,8 @@ class TemperatureRModule extends RModuleClass {
   
   final I2C i2c;
   
-  public TemperatureRModule() {
-    super(RModule.Temperature);
+  public TemperatureRModule(processing.data.JSONObject json) {
+    super(RModule.Temperature, json.getInt("PAGE_ID"), json.getInt("AREA_ID"));
     i2c = new I2C(I2C.list()[0]);
     
     this.background = generateBackground();
@@ -47,8 +47,8 @@ class TemperatureRModule extends RModuleClass {
     }
   }
   
-  public void draw(Area area) {
-    super.draw(area);
+  public void draw() {
+    super.draw();
     
     push();
     
