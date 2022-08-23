@@ -1,11 +1,11 @@
 enum RModule {
-  Weather("WeatherRModule", "weather/", RModuleSize.M),
-  Temperature("TemperatureRModule", "temperature/", RModuleSize.S),
-  Brightness("BrightnessRModule", "brightness/", RModuleSize.S),
-  Bus("BusRModule", "bus/", RModuleSize.L),
-  Gomi("GomiRModule", "gomi/", RModuleSize.M),
-  OpenClose("OpenCloseRModule", "openclose/", RModuleSize.M),
-  Twitter("TwitterRModule", "twitter/", RModuleSize.L);
+  Weather("Weather", "weather/", RModuleSize.M),
+  Temperature("Temperature", "temperature/", RModuleSize.S),
+  Brightness("Brightness", "brightness/", RModuleSize.S),
+  Bus("Bus", "bus/", RModuleSize.L),
+  Gomi("Gomi", "gomi/", RModuleSize.M),
+  OpenClose("OpenClose", "openclose/", RModuleSize.M),
+  Twitter("Twitter", "twitter/", RModuleSize.L);
   
   private final String name;
   private final String path;

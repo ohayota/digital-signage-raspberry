@@ -3,7 +3,7 @@ class LocationModule {
   final String location;
   
   public LocationModule(processing.data.JSONObject json) {
-    this.location = json.getJSONObject("LocationModule").getString("LOCATION");
+    this.location = json.getJSONObject("Location").getString("LOCATION");
   }
   
   public void draw() {

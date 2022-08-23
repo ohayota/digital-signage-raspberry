@@ -2,8 +2,6 @@ class State {
   
   private int nowPageID = -1; // -1は起動画面、0以上は各ページに対応
   final int STAY_SECOND; // 1つの画面に留まる秒数（60の約数）
-  final int PAGE_ALL_COUNT; // 表示するすべての画面（ページ）の合計枚数
-  final int AD_IMAGE_COUNT;
   final int SHADOW_ALPHA;
   final int SHADOW_PADDING;
   final int MODULE_RECT_ROUND;
@@ -18,8 +16,6 @@ class State {
   
   public State(processing.data.JSONObject json) {
     this.STAY_SECOND = json.getInt("STAY_SECOND");
-    this.PAGE_ALL_COUNT = json.getInt("PAGE_ALL_COUNT");
-    this.AD_IMAGE_COUNT = json.getInt("AD_IMAGE_COUNT");
     this.SHADOW_ALPHA = json.getInt("SHADOW_ALPHA");
     this.SHADOW_PADDING = json.getInt("SHADOW_PADDING");
     this.MODULE_RECT_ROUND = json.getInt("MODULE_RECT_ROUND");
@@ -43,9 +39,9 @@ class State {
   
   public void updateNowPageID(boolean isIncrement) {
     if (isIncrement) {
-      nowPageID = (nowPageID + 1) % PAGE_ALL_COUNT;
+      nowPageID = (nowPageID + 1) % pages.size();
     } else {
-      nowPageID = (nowPageID + PAGE_ALL_COUNT - 1) % PAGE_ALL_COUNT;
+      nowPageID = (nowPageID + pages.size() - 1) % pages.size();
     }
   }
   

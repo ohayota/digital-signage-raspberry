@@ -10,7 +10,7 @@ class OpenCloseRModule extends RModuleClass {
   final String CLOSE_DESCRIPTION;
   
   public OpenCloseRModule(processing.data.JSONObject json) {
-    super(RModule.OpenClose, json.getInt("PAGE_ID"), json.getInt("AREA_ID"));
+    super(RModule.OpenClose, json.getInt("AREA_ID"));
     this.SWITCH_PIN = json.getInt("SWITCH_PIN");
     this.OPEN_DESCRIPTION = json.getString("OPEN_DESCRIPTION");
     this.CLOSE_DESCRIPTION = json.getString("CLOSE_DESCRIPTION");

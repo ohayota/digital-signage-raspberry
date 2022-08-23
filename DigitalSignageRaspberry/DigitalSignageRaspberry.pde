@@ -30,20 +30,14 @@ LaunchingScreen launchingScreen;
 GridModule grid;
 Placeholder placeholder;
 FullImageModule background;
-FullImageModule[] adImage;
+ArrayList<FullImageModule> adImage;
 
 DateModule dateModule;
 LocationModule locationModule;
 PageControlModule pageControlModule;
 ProgressBarModule progressBarModule;
 
-ArrayList<WeatherRModule> weatherRModules;
-ArrayList<BusRModule> busRModules;
-ArrayList<GomiRModule> gomiRModules;
-ArrayList<TwitterRModule> twitterRModules;
-ArrayList<OpenCloseRModule> openCloseRModules;
-ArrayList<BrightnessRModule> brightnessRModules;
-ArrayList<TemperatureRModule> temperatureRModules;
+ArrayList<Page> pages;
 
 
 void settings() {
@@ -57,13 +51,7 @@ void setup() {
   noCursor();
   colorMode(HSB, 360, 100, 100, 100);
   
-  weatherRModules = new ArrayList<WeatherRModule>();
-  busRModules = new ArrayList<BusRModule>();
-  gomiRModules = new ArrayList<GomiRModule>();
-  twitterRModules = new ArrayList<TwitterRModule>();
-  openCloseRModules = new ArrayList<OpenCloseRModule>();
-  brightnessRModules = new ArrayList<BrightnessRModule>();
-  temperatureRModules = new ArrayList<TemperatureRModule>();
+  pages = new ArrayList<Page>();
   
   final processing.data.JSONObject stateSettingJSON = loadJSONObject("setting.json").getJSONObject("State");
   state = new State(stateSettingJSON);
@@ -76,7 +64,7 @@ void setup() {
   
   launchingScreen = new LaunchingScreen();
   if (TEST_MODE) {
-    test();
+    //test();
     exit();
   }
   
@@ -99,42 +87,10 @@ void drawModules() {
   //grid.draw();
   //placeholder.draw();
   
+  Page page = pages.get(state.getNowPageID());
+  
   background.draw();
-  for (WeatherRModule weather: weatherRModules) {
-    if (weather.pageId == state.getNowPageID()) {
-      weather.draw();
-    }
-  }
-  for (BusRModule bus: busRModules) {
-    if (bus.pageId == state.getNowPageID()) {
-      bus.draw();
-    }
-  }
-  for (GomiRModule gomi: gomiRModules) {
-    if (gomi.pageId == state.getNowPageID()) {
-      gomi.draw();
-    }
-  }
-  for (TwitterRModule twitter: twitterRModules) {
-    if (twitter.pageId == state.getNowPageID()) {
-      twitter.draw();
-    }
-  }
-  for (OpenCloseRModule openClose: openCloseRModules) {
-    if (openClose.pageId == state.getNowPageID()) {
-      openClose.draw();
-    }
-  }
-  for (BrightnessRModule brightness: brightnessRModules) {
-    if (brightness.pageId == state.getNowPageID()) {
-      brightness.draw();
-    }
-  }
-  for (TemperatureRModule temperature: temperatureRModules) {
-    if (temperature.pageId == state.getNowPageID()) {
-      temperature.draw();
-    }
-  }
+  page.draw();
   
   //if (state.getNowPageID() == 0) {
   //  background.draw();
@@ -163,14 +119,16 @@ void drawModules() {
 void updateDatas() {
   dateModule.updateDate();
   
-  for (OpenCloseRModule openClose: openCloseRModules) {
-    openClose.update();
-  }
-  for (TemperatureRModule temperature: temperatureRModules) {
-    temperature.update();
-  }
-  for (BrightnessRModule brightness: brightnessRModules) {
-    brightness.update();
+  for (Page page: pages) {
+    for (OpenCloseRModule openClose: page.openCloseRModules) {
+      openClose.update();
+    }
+    for (TemperatureRModule temperature: page.temperatureRModules) {
+      temperature.update();
+    }
+    for (BrightnessRModule brightness: page.brightnessRModules) {
+      brightness.update();
+    }
   }
   
   final boolean isUpdatedSecond = (dateModule.second != dateModule.beforeSecond);
@@ -182,11 +140,13 @@ void updateDatas() {
     println("日付が変わりました。");
     dateModule.updateYoubi();
     
-    for (BusRModule bus: busRModules) {
-      bus.update();
-    }
-    for (GomiRModule gomi: gomiRModules) {
-      gomi.update();
+    for (Page page: pages) {
+      for (BusRModule bus: page.busRModules) {
+        bus.update();
+      }
+      for (GomiRModule gomi: page.gomiRModules) {
+        gomi.update();
+      }
     }
     
     dateModule.updateBeforeDay();
@@ -198,18 +158,22 @@ void updateDatas() {
       state.updateNowPageID(true);
     }
     if (isUpdatedMinute) {
-      for (BusRModule bus: busRModules) {
-        bus.refleshTop2();
+      for (Page page: pages) {
+        for (BusRModule bus: page.busRModules) {
+          bus.refleshTop2();
+        }
       }
       dateModule.updateBeforeMinute();
     }
     if (dateModule.minute + dateModule.second == 0) {
       println(dateModule.hour + "時になりました。");
-      for (WeatherRModule weather: weatherRModules) {
-        weather.update();
-      }
-      for (TwitterRModule twitter: twitterRModules) {
-        twitter.update();
+      for (Page page: pages) {
+        for (WeatherRModule weather: page.weatherRModules) {
+          weather.update();
+        }
+        for (TwitterRModule twitter: page.twitterRModules) {
+          twitter.update();
+        }
       }
     }
     

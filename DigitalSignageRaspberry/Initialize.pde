@@ -5,52 +5,73 @@ void initialize() {
   dateModule = new DateModule();
   launchingScreen.setIsInitializedDates(true);
   
-  processing.data.JSONArray rModuleJsonArray;
-  
   initializeImage();
   grid = new GridModule();
   placeholder = new Placeholder();
-  launchingScreen.setIsInitializedImages(true);
+  launchingScreen.setIsInitializedImages(true); //<>//
   
-  rModuleJsonArray = USER_SETTING_JSON.getJSONArray(RModule.Bus.getName());
-  for (int i = 0; i < rModuleJsonArray.size(); i++) {
-    busRModules.add(new BusRModule(rModuleJsonArray.getJSONObject(i)));
+  
+  final processing.data.JSONArray pageArray = USER_SETTING_JSON.getJSONArray("Page");
+  for (int pageID = 0; pageID < pageArray.size(); pageID++) {
+    Page page = new Page();
+    final processing.data.JSONObject pageObject = pageArray.getJSONObject(pageID);
+    processing.data.JSONArray rmArray; 
+    
+    rmArray = pageObject.getJSONArray(RModule.Bus.getName());
+    if (rmArray != null) {
+      for (int i = 0; i < rmArray.size(); i++) {
+        BusRModule rm = new BusRModule(rmArray.getJSONObject(i));
+        page.busRModules.add(rm); //<>//
+      }
+    }
+    rmArray = pageObject.getJSONArray(RModule.Gomi.getName()); //<>//
+    if (rmArray != null) {
+      for (int i = 0; i < rmArray.size(); i++) {
+        GomiRModule rm = new GomiRModule(rmArray.getJSONObject(i));
+        page.gomiRModules.add(rm); //<>//
+      }
+    }
+    rmArray = pageObject.getJSONArray(RModule.Weather.getName());
+    if (rmArray != null) {
+      for (int i = 0; i < rmArray.size(); i++) {
+        WeatherRModule rm = new WeatherRModule(rmArray.getJSONObject(i));
+        page.weatherRModules.add(rm);
+      }
+    }
+    rmArray = pageObject.getJSONArray(RModule.Twitter.getName());
+    if (rmArray != null) {
+      for (int i = 0; i < rmArray.size(); i++) {
+        TwitterRModule rm = new TwitterRModule(rmArray.getJSONObject(i));
+        page.twitterRModules.add(rm);
+      }
+    }
+    rmArray = pageObject.getJSONArray(RModule.Temperature.getName());
+    if (rmArray != null) {
+      for (int i = 0; i < rmArray.size(); i++) {
+        TemperatureRModule rm = new TemperatureRModule(rmArray.getJSONObject(i));
+        page.temperatureRModules.add(rm);
+      }
+    }
+    rmArray = pageObject.getJSONArray(RModule.Brightness.getName());
+    if (rmArray != null) {
+      for (int i = 0; i < rmArray.size(); i++) {
+        BrightnessRModule rm = new BrightnessRModule(rmArray.getJSONObject(i));
+        page.brightnessRModules.add(rm);
+      }
+    }
+    rmArray = pageObject.getJSONArray(RModule.OpenClose.getName());
+    if (rmArray != null) {
+      for (int i = 0; i < rmArray.size(); i++) {
+        OpenCloseRModule rm = new OpenCloseRModule(rmArray.getJSONObject(i));
+        page.openCloseRModules.add(rm);
+      }
+    }
+    pages.add(page);
   }
   launchingScreen.setIsInitializedBus(true);
-  
-  rModuleJsonArray = USER_SETTING_JSON.getJSONArray(RModule.Gomi.getName());
-  for (int i = 0; i < rModuleJsonArray.size(); i++) {
-    gomiRModules.add(new GomiRModule(rModuleJsonArray.getJSONObject(i)));
-  }
   launchingScreen.setIsInitializedGomi(true);
-  
-  rModuleJsonArray = USER_SETTING_JSON.getJSONArray(RModule.Weather.getName());
-  for (int i = 0; i < rModuleJsonArray.size(); i++) {
-    weatherRModules.add(new WeatherRModule(rModuleJsonArray.getJSONObject(i)));
-  }
   launchingScreen.setIsInitializedWeather(true);
-  
-  rModuleJsonArray = USER_SETTING_JSON.getJSONArray(RModule.Twitter.getName());
-  for (int i = 0; i < rModuleJsonArray.size(); i++) {
-    twitterRModules.add(new TwitterRModule(rModuleJsonArray.getJSONObject(i)));
-  }
   launchingScreen.setIsInitializedTwitter(true);
-  
-  // 残りの各モジュール初期化
-  rModuleJsonArray = USER_SETTING_JSON.getJSONArray(RModule.Temperature.getName());
-  for (int i = 0; i < rModuleJsonArray.size(); i++) {
-    temperatureRModules.add(new TemperatureRModule(rModuleJsonArray.getJSONObject(i)));
-  }
-  
-  rModuleJsonArray = USER_SETTING_JSON.getJSONArray(RModule.Brightness.getName());
-  for (int i = 0; i < rModuleJsonArray.size(); i++) {
-    brightnessRModules.add(new BrightnessRModule(rModuleJsonArray.getJSONObject(i)));
-  }
-  
-  rModuleJsonArray = USER_SETTING_JSON.getJSONArray(RModule.OpenClose.getName());
-  for (int i = 0; i < rModuleJsonArray.size(); i++) {
-    openCloseRModules.add(new OpenCloseRModule(rModuleJsonArray.getJSONObject(i)));
-  }
   
   locationModule = new LocationModule(USER_SETTING_JSON);
   
@@ -68,10 +89,11 @@ void initializeImage() {
   final String DUMMY_PATH = "dummy/";
   final String AD_PATH = "ad/";
   
-  adImage = new FullImageModule[state.AD_IMAGE_COUNT]; //<>//
-  for (int i = 0; i < state.AD_IMAGE_COUNT; i++) { //<>//
-    PImage ad = loadImage(AD_PATH + "ad" + i + ".jpg"); //<>//
-    adImage[i] = new FullImageModule(ad);
+  adImage = new ArrayList<FullImageModule>(); //<>//
+  for (int i = 0; i < 20; i++) { //<>//
+    PImage ad = loadImage(AD_PATH + "ad" + i + ".jpg");
+    if (ad == null) break;
+    adImage.add(new FullImageModule(ad)); //<>//
   }
   dummy1080x1920 = loadImage(DUMMY_PATH + "1080x1920.jpg");
   dummy1920x1080 = loadImage(DUMMY_PATH + "1920x1080.jpg");

@@ -15,10 +15,7 @@ public class RModuleClass {
   private final int SHADOW_PADDING;
   private final int MODULE_RECT_ROUND;
   
-  protected final int pageId;
-  
-  protected RModuleClass(RModule rModule, int pageId, int areaId) {
-    this.pageId = pageId;
+  protected RModuleClass(RModule rModule, int areaId) {
     this.rModule = rModule;
     this.size = rModule.getSize();
     Area area = choiceArea(areaId);

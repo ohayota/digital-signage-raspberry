@@ -3,7 +3,7 @@ class ProgressBarModule {
   final int BAR_HEIGHT;
   
   public ProgressBarModule(processing.data.JSONObject json) {
-    this.BAR_HEIGHT = json.getJSONObject("ProgressBarModule").getInt("BAR_HEIGHT");
+    this.BAR_HEIGHT = json.getJSONObject("ProgressBar").getInt("BAR_HEIGHT");
   }
   
   public void draw() {

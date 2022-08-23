@@ -10,7 +10,7 @@ class GomiRModule extends RModuleClass {
   final PGraphics background;
   
   public GomiRModule(processing.data.JSONObject json) {
-    super(RModule.Gomi, json.getInt("PAGE_ID"), json.getInt("AREA_ID"));
+    super(RModule.Gomi, json.getInt("AREA_ID"));
     this.GOMI_API_URL = json.getString("GOMI_API_URL");
     this.LOCATION = json.getString("LOCATION");
     this.background = generateBackground();

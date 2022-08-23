@@ -9,7 +9,7 @@ class BrightnessRModule extends RModuleClass {
   SPI spi;
   
   public BrightnessRModule(processing.data.JSONObject json) {
-    super(RModule.Brightness, json.getInt("PAGE_ID"), json.getInt("AREA_ID"));
+    super(RModule.Brightness, json.getInt("AREA_ID"));
     spi = new SPI(SPI.list()[0]);
     spi.settings(500000, SPI.MSBFIRST, SPI.MODE0);
     
