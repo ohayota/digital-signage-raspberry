@@ -10,12 +10,15 @@ class GomiRModule extends RModuleClass {
   final PGraphics background;
   
   public GomiRModule(processing.data.JSONObject json) {
-    super(RModule.Gomi);
-    json = json.getJSONObject(rModule.getName());
+    super(RModule.Gomi, json.getInt("AREA_ID"));
     this.GOMI_API_URL = json.getString("GOMI_API_URL");
     this.LOCATION = json.getString("LOCATION");
     this.background = generateBackground();
+    this.initialize();
     this.update();
+  }
+  
+  void initialize() {
   }
   
   private PGraphics generateBackground() {
@@ -85,8 +88,8 @@ class GomiRModule extends RModuleClass {
     }
   }
   
-  public void draw(Area area) {
-    super.draw(area);
+  public void draw() {
+    super.draw();
     
     push();
     

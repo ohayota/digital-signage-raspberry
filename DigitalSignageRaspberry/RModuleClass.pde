@@ -4,8 +4,8 @@ public class RModuleClass {
   protected final RModuleSize size;
   private final PGraphics shadow;
   
-  protected int x;
-  protected int y;
+  protected final int x;
+  protected final int y;
   protected final int w;
   protected final int h;
   
@@ -15,9 +15,12 @@ public class RModuleClass {
   private final int SHADOW_PADDING;
   private final int MODULE_RECT_ROUND;
   
-  protected RModuleClass(RModule rModule) {
+  protected RModuleClass(RModule rModule, int areaId) {
     this.rModule = rModule;
     this.size = rModule.getSize();
+    Area area = choiceArea(areaId);
+    this.x = area.getLayoutGuideX();
+    this.y = area.getLayoutGuideY();
     this.w = rModule.getSize().getRModuleWidth();
     this.h = rModule.getSize().getRModuleHeight();
     this.SHADOW_ALPHA = state.SHADOW_ALPHA;
@@ -26,7 +29,7 @@ public class RModuleClass {
     this.shadow = moduleShadowImage(size);
   }
   
-  protected void drawModuleShadow(int x, int y, RModuleSize size) {
+  protected void drawModuleShadow(RModuleSize size) {
     PGraphics shadow = moduleShadowImage(size);
     image(shadow, x-SHADOW_PADDING, y-SHADOW_PADDING);
   }
@@ -63,13 +66,31 @@ public class RModuleClass {
     return shadow;
   }
   
-  void draw(Area area) {
+  Area choiceArea(int areaId) {
+    switch (areaId) {
+      case 1: 
+        return Area.area1;
+      case 2: 
+        return Area.area2;
+      case 3: 
+        return Area.area3;
+      case 4: 
+        return Area.area4;
+      case 5: 
+        return Area.area5;
+      case 6: 
+        return Area.area6;
+      case 7: 
+        return Area.area7;
+      case 8: 
+        return Area.area8;
+    }
+    return null;
+  }
+  
+  void draw() {
     push();
-    
-    this.x = area.getLayoutGuideX();
-    this.y = area.getLayoutGuideY();
     image(shadow, x-SHADOW_PADDING, y-SHADOW_PADDING);
-    
     pop();
   }
 }

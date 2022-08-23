@@ -10,17 +10,20 @@ class OpenCloseRModule extends RModuleClass {
   final String CLOSE_DESCRIPTION;
   
   public OpenCloseRModule(processing.data.JSONObject json) {
-    super(RModule.OpenClose);
-    json = json.getJSONObject(rModule.getName());
+    super(RModule.OpenClose, json.getInt("AREA_ID"));
     this.SWITCH_PIN = json.getInt("SWITCH_PIN");
     this.OPEN_DESCRIPTION = json.getString("OPEN_DESCRIPTION");
     this.CLOSE_DESCRIPTION = json.getString("CLOSE_DESCRIPTION");
     
     this.background = generateBackground();
     this.backgroundClose = generateBackgroundClose();
+    this.initialize();
     this.update();
     
     GPIO.pinMode(SWITCH_PIN, GPIO.INPUT);
+  }
+  
+  void initialize() {
   }
   
   private PGraphics generateBackground() {
@@ -62,8 +65,8 @@ class OpenCloseRModule extends RModuleClass {
     }
   }
   
-  public void draw(Area area) {
-    super.draw(area);
+  public void draw() {
+    super.draw();
     
     push();
     

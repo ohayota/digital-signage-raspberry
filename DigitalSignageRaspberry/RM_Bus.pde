@@ -17,14 +17,17 @@ class BusRModule extends RModuleClass {
   final PGraphics background;
   
   public BusRModule(processing.data.JSONObject json) {
-    super(RModule.Bus);
-    json = json.getJSONObject(rModule.getName());
+    super(RModule.Bus, json.getInt("AREA_ID"));
     this.BUS_API_URL = json.getString("BUS_API_URL");
     this.BUSSTOP_START = json.getString("BUSSTOP_START");
     this.BUSSTOP_END = json.getString("BUSSTOP_END");
     this.background = generateBackground();
+    this.initialize();
     this.update();
     this.busMap = pImageCut(loadImage(rModule.getPath() + "bus_map.jpg"), CENTER, CENTER, 1280, 720);
+  }
+  
+  void initialize() {
   }
   
   private PGraphics generateBackground() {
@@ -114,8 +117,8 @@ class BusRModule extends RModuleClass {
     }
   }
   
-  public void draw(Area area) {
-    super.draw(area);
+  public void draw() {
+    super.draw();
     
     push();
     

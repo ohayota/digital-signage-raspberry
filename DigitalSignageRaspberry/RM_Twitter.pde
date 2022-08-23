@@ -16,15 +16,18 @@ class TwitterRModule extends RModuleClass {
   final PGraphics background;
   
   public TwitterRModule(processing.data.JSONObject json) {
-    super(RModule.Twitter);
-    json = json.getJSONObject(rModule.getName());
+    super(RModule.Twitter, json.getInt("AREA_ID"));
     this.CONSUMER_KEY = json.getString("CONSUMER_KEY");
     this.CONSUMER_KEY_SECRET = json.getString("CONSUMER_KEY_SECRET");
     this.ACCESS_TOKEN = json.getString("ACCESS_TOKEN");
     this.ACCESS_TOKEN_SECRET = json.getString("ACCESS_TOKEN_SECRET");
     this.TWEET_ID = json.getLong("TWEET_ID");
     this.background = generateBackground();
+    this.initialize();
     this.update();
+  }
+  
+  void initialize() {
   }
   
   private PGraphics generateBackground() {
@@ -99,8 +102,8 @@ class TwitterRModule extends RModuleClass {
     }
   }
   
-  public void draw(Area area) {
-    super.draw(area);
+  public void draw() {
+    super.draw();
     
     push();
     

@@ -1,12 +1,4 @@
 void keyPressed() {
-  if (key == 'o' || key == 'O') {
-    openCloseRModule.isOpen = true;
-    println("keyPressed(): isOpen = true");
-  }
-  if (key == 'c' || key == 'C') {
-    openCloseRModule.isOpen = false;
-    println("keyPressed(): isOpen = false");
-  }
   if (key == ENTER) {
     saveFrame("frames/####.png");
     println("keyPressed(): saveFrame");

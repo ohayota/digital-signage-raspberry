@@ -25,30 +25,20 @@ PImage dummy1080x1920;
 PImage dummy1920x1080;
 PImage dummy360x360;
 
-LaunchingScreen launchingScreen;
-
 GridModule grid;
 Placeholder placeholder;
-FullImageModule background;
-FullImageModule[] adImage;
-
 DateModule dateModule;
 LocationModule locationModule;
 PageControlModule pageControlModule;
 ProgressBarModule progressBarModule;
 
-WeatherRModule weatherRModule;
-BusRModule busRModule;
-GomiRModule gomiRModule;
-TwitterRModule twitterRModule;
-OpenCloseRModule openCloseRModule;
-BrightnessRModule brightnessRModule;
-TemperatureRModule temperatureRModule;
+LaunchingScreen launchingScreen;
+ArrayList<Page> pages;
 
 
 void settings() {
-  size(1920, 1080);
-  //fullScreen();
+  //size(1920, 1080);
+  fullScreen();
 }
 
 
@@ -57,6 +47,8 @@ void setup() {
   noCursor();
   colorMode(HSB, 360, 100, 100, 100);
   
+  pages = new ArrayList<Page>();
+  
   final processing.data.JSONObject stateSettingJSON = loadJSONObject("setting.json").getJSONObject("State");
   state = new State(stateSettingJSON);
   
@@ -64,11 +56,9 @@ void setup() {
   textFont(createFont("NotoSansCJKjp-Bold", 32)); // Mac
   //textFont(createFont("Noto Sans CJK jp Bold", 32)); // RasPi
   
-  background = new FullImageModule(pImageCut(loadImage("background.jpg"), CENTER, CENTER, width, height));
-  
   launchingScreen = new LaunchingScreen();
   if (TEST_MODE) {
-    test();
+    //test();
     exit();
   }
   
@@ -77,50 +67,28 @@ void setup() {
  //<>//
 
 void draw() {
-  if (state.getNowPageID() == -1) {
-    background.draw(); //<>//
+  if (state.getNowPageID() == -1) { //<>//
     launchingScreen.draw(); //<>//
   } else {
     updateDatas();
-    drawModules();
+    pages.get(state.getNowPageID()).draw();
   }
 }
-
-
-void drawModules() {
-  //grid.draw();
-  //placeholder.draw();
-  
-  if (state.getNowPageID() == 0) {
-    background.draw();
-    weatherRModule.draw(Area.area1);
-    busRModule.draw(Area.area3);
-    temperatureRModule.draw(Area.area5);
-    brightnessRModule.draw(Area.area6);
-  } else if (state.getNowPageID() == 1) {
-    background.draw();
-    gomiRModule.draw(Area.area1);
-    twitterRModule.draw(Area.area3);
-    openCloseRModule.draw(Area.area5);
-  } else if (state.getNowPageID() == 2) {
-    adImage[0].draw();
-  } else if (state.getNowPageID() == 3) {
-    adImage[1].draw();
-  }
-
-  progressBarModule.draw();
-  pageControlModule.draw();
-  dateModule.draw();
-  locationModule.draw();
-}
-
 
 void updateDatas() {
   dateModule.updateDate();
   
-  openCloseRModule.update();
-  temperatureRModule.update();
-  brightnessRModule.update();
+  for (Page page: pages) {
+    for (OpenCloseRModule openClose: page.openCloseRModules) {
+      openClose.update();
+    }
+    for (TemperatureRModule temperature: page.temperatureRModules) {
+      temperature.update();
+    }
+    for (BrightnessRModule brightness: page.brightnessRModules) {
+      brightness.update();
+    }
+  }
   
   final boolean isUpdatedSecond = (dateModule.second != dateModule.beforeSecond);
   final boolean isUpdatedMinute = (dateModule.minute != dateModule.beforeMinute);
@@ -131,8 +99,14 @@ void updateDatas() {
     println("日付が変わりました。");
     dateModule.updateYoubi();
     
-    busRModule.update();
-    gomiRModule.update();
+    for (Page page: pages) {
+      for (BusRModule bus: page.busRModules) {
+        bus.update();
+      }
+      for (GomiRModule gomi: page.gomiRModules) {
+        gomi.update();
+      }
+    }
     
     dateModule.updateBeforeDay();
   }
@@ -143,13 +117,23 @@ void updateDatas() {
       state.updateNowPageID(true);
     }
     if (isUpdatedMinute) {
-      busRModule.refleshTop2();
+      for (Page page: pages) {
+        for (BusRModule bus: page.busRModules) {
+          bus.refleshTop2();
+        }
+      }
       dateModule.updateBeforeMinute();
     }
     if (dateModule.minute + dateModule.second == 0) {
       println(dateModule.hour + "時になりました。");
-      weatherRModule.update();
-      twitterRModule.update();
+      for (Page page: pages) {
+        for (WeatherRModule weather: page.weatherRModules) {
+          weather.update();
+        }
+        for (TwitterRModule twitter: page.twitterRModules) {
+          twitter.update();
+        }
+      }
     }
     
     dateModule.updateBeforeSecond();

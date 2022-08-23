@@ -1,42 +1,87 @@
 {
     "USER_SETTING_FILE_NAME": "setting.json",
-    "BusRModule": {
-        "BUS_API_URL": "",
-        "BUSSTOP_START": "乗車バス停名",
-        "BUSSTOP_END": "降車バス停名"
-    },
-    "GomiRModule": {
-        "GOMI_API_URL": "",
-        "LOCATION": "地域名"
-    },
-    "WeatherRModule": {
-        "WEATHER_API_KEY": "",
-        "LATITUDE": 0.0,
-        "LONGITUDE": 0.0,
-        "LOCATION": "地域名"
-    },
-    "TwitterRModule": {
-        "CONSUMER_KEY": "",
-        "CONSUMER_KEY_SECRET": "",
-        "ACCESS_TOKEN": "",
-        "ACCESS_TOKEN_SECRET": "",
-        "TWEET_ID": 0
-    },
-    "OpenCloseRModule": {
-        "SWITCH_PIN": 23,
-        "OPEN_DESCRIPTION": "開店しています。",
-        "CLOSE_DESCRIPTION": "閉店しています。"
-    },
-    "LocationModule": {
+    "Page": [
+        {
+            "FullImage": {
+                "PATH": "background.jpg"
+            },
+            "Weather": [
+                {
+                    "AREA_ID": 1,
+                    "WEATHER_API_KEY": "",
+                    "LATITUDE": 0.0,
+                    "LONGITUDE": 0.0,
+                    "LOCATION": "地点名"
+                }
+            ],
+            "Bus": [
+                {
+                    "AREA_ID": 3,
+                    "BUS_API_URL": "",
+                    "BUSSTOP_START": "乗車地点",
+                    "BUSSTOP_END": "降車地点"
+                }
+            ],
+            "Brightness": [
+                {
+                    "AREA_ID": 5
+                }
+            ],
+            "Temperature": [
+                {
+                    "AREA_ID": 6
+                }
+            ]
+        },
+        {
+            "FullImage": {
+                "PATH": "background.jpg"
+            },
+            "Gomi": [
+                {
+                    "AREA_ID": 1,
+                    "GOMI_API_URL": "",
+                    "LOCATION": "地点名"
+                }
+            ],
+            "Twitter": [
+                {
+                    "AREA_ID": 3,
+                    "CONSUMER_KEY": "",
+                    "CONSUMER_KEY_SECRET": "",
+                    "ACCESS_TOKEN": "",
+                    "ACCESS_TOKEN_SECRET": "",
+                    "TWEET_ID": 0
+                }
+            ],
+            "OpenClose": [
+                {
+                    "AREA_ID": 5,
+                    "SWITCH_PIN": 23,
+                    "OPEN_DESCRIPTION": "開店しています。",
+                    "CLOSE_DESCRIPTION": "閉店しています。"
+                }
+            ]
+        },
+        {
+            "FullImage": {
+                "PATH": "ad/ad0.jpg"
+            }
+        },
+        {
+            "FullImage": {
+                "PATH": "ad/ad1.jpg"
+            }
+        }
+    ],
+    "Location": {
         "LOCATION": "設置場所名"
     },
-    "ProgressBarModule": {
+    "ProgressBar": {
         "BAR_HEIGHT": 20
     },
     "State": {
         "STAY_SECOND": 20,
-        "PAGE_ALL_COUNT": 4,
-        "AD_IMAGE_COUNT": 2,
         "SHADOW_ALPHA": 40,
         "SHADOW_PADDING": 20,
         "MODULE_RECT_ROUND": 30
