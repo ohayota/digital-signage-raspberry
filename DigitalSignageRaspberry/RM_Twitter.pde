@@ -23,7 +23,11 @@ class TwitterRModule extends RModuleClass {
     this.ACCESS_TOKEN_SECRET = json.getString("ACCESS_TOKEN_SECRET");
     this.TWEET_ID = json.getLong("TWEET_ID");
     this.background = generateBackground();
+    this.initialize();
     this.update();
+  }
+  
+  void initialize() {
   }
   
   private PGraphics generateBackground() {

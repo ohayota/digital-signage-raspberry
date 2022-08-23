@@ -22,8 +22,12 @@ class BusRModule extends RModuleClass {
     this.BUSSTOP_START = json.getString("BUSSTOP_START");
     this.BUSSTOP_END = json.getString("BUSSTOP_END");
     this.background = generateBackground();
+    this.initialize();
     this.update();
     this.busMap = pImageCut(loadImage(rModule.getPath() + "bus_map.jpg"), CENTER, CENTER, 1280, 720);
+  }
+  
+  void initialize() {
   }
   
   private PGraphics generateBackground() {

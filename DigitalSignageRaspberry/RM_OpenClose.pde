@@ -17,9 +17,13 @@ class OpenCloseRModule extends RModuleClass {
     
     this.background = generateBackground();
     this.backgroundClose = generateBackgroundClose();
+    this.initialize();
     this.update();
     
     GPIO.pinMode(SWITCH_PIN, GPIO.INPUT);
+  }
+  
+  void initialize() {
   }
   
   private PGraphics generateBackground() {

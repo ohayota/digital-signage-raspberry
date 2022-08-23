@@ -16,7 +16,11 @@ class BrightnessRModule extends RModuleClass {
     this.background = generateBackground();
     this.backgroundNotBright = generateBackgroundNotBright();
     
+    this.initialize();
     this.update();
+  }
+  
+  void initialize() {
   }
   
   private PGraphics generateBackground() {

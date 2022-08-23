@@ -11,7 +11,11 @@ class TemperatureRModule extends RModuleClass {
     i2c = new I2C(I2C.list()[0]);
     
     this.background = generateBackground();
+    this.initialize();
     this.update();
+  }
+  
+  void initialize() {
   }
   
   private PGraphics generateBackground() {

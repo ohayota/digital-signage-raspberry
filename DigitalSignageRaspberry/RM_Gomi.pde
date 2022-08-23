@@ -14,7 +14,11 @@ class GomiRModule extends RModuleClass {
     this.GOMI_API_URL = json.getString("GOMI_API_URL");
     this.LOCATION = json.getString("LOCATION");
     this.background = generateBackground();
+    this.initialize();
     this.update();
+  }
+  
+  void initialize() {
   }
   
   private PGraphics generateBackground() {

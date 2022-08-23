@@ -18,7 +18,11 @@ class WeatherRModule extends RModuleClass {
     this.LONGITUDE = json.getFloat("LONGITUDE");
     this.LOCATION = json.getString("LOCATION");
     this.background = generateBackground();
+    this.initialize();
     this.update();
+  }
+  
+  void initialize() {
   }
   
   PGraphics generateBackground() {

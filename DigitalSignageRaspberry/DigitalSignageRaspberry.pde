@@ -25,24 +25,20 @@ PImage dummy1080x1920;
 PImage dummy1920x1080;
 PImage dummy360x360;
 
-LaunchingScreen launchingScreen;
-
 GridModule grid;
 Placeholder placeholder;
-FullImageModule background;
-ArrayList<FullImageModule> adImage;
-
 DateModule dateModule;
 LocationModule locationModule;
 PageControlModule pageControlModule;
 ProgressBarModule progressBarModule;
 
+LaunchingScreen launchingScreen;
 ArrayList<Page> pages;
 
 
 void settings() {
-  size(1920, 1080);
-  //fullScreen();
+  //size(1920, 1080);
+  fullScreen();
 }
 
 
@@ -60,8 +56,6 @@ void setup() {
   textFont(createFont("NotoSansCJKjp-Bold", 32)); // Mac
   //textFont(createFont("Noto Sans CJK jp Bold", 32)); // RasPi
   
-  background = new FullImageModule(pImageCut(loadImage("background.jpg"), CENTER, CENTER, width, height));
-  
   launchingScreen = new LaunchingScreen();
   if (TEST_MODE) {
     //test();
@@ -73,48 +67,13 @@ void setup() {
  //<>//
 
 void draw() {
-  if (state.getNowPageID() == -1) {
-    background.draw(); //<>//
+  if (state.getNowPageID() == -1) { //<>//
     launchingScreen.draw(); //<>//
   } else {
     updateDatas();
-    drawModules();
+    pages.get(state.getNowPageID()).draw();
   }
 }
-
-
-void drawModules() {
-  //grid.draw();
-  //placeholder.draw();
-  
-  Page page = pages.get(state.getNowPageID());
-  
-  background.draw();
-  page.draw();
-  
-  //if (state.getNowPageID() == 0) {
-  //  background.draw();
-  //  weatherRModules.get(0).draw();
-  //  busRModules.get(0).draw();
-  //  temperatureRModules.get(0).draw();
-  //  brightnessRModules.get(0).draw();
-  //} else if (state.getNowPageID() == 1) {
-  //  background.draw();
-  //  gomiRModules.get(0).draw();
-  //  twitterRModules.get(0).draw();
-  //  openCloseRModules.get(0).draw();
-  //} else if (state.getNowPageID() == 2) {
-  //  adImage[0].draw();
-  //} else if (state.getNowPageID() == 3) {
-  //  adImage[1].draw();
-  //}
-
-  progressBarModule.draw();
-  pageControlModule.draw();
-  dateModule.draw();
-  locationModule.draw();
-}
-
 
 void updateDatas() {
   dateModule.updateDate();

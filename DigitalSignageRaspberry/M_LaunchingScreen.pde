@@ -1,14 +1,24 @@
 public class LaunchingScreen {
   
+  FullImageModule background;
+  
   // 起動画面用の初期化済フラグ
-  private boolean isInitializedImages = false;
-  private boolean isInitializedDates = false;
-  private boolean isInitializedWeather = false;
-  private boolean isInitializedBus = false;
-  private boolean isInitializedGomi = false;
-  private boolean isInitializedTwitter = false;
+  private boolean isInitializedImages;
+  private boolean isInitializedDates;
+  private boolean isInitializedWeather;
+  private boolean isInitializedBus;
+  private boolean isInitializedGomi;
+  private boolean isInitializedTwitter;
   
   public LaunchingScreen() {
+    isInitializedImages = false;
+    isInitializedDates = false;
+    isInitializedWeather = false;
+    isInitializedBus = false;
+    isInitializedGomi = false;
+    isInitializedTwitter = false;
+    
+    background = new FullImageModule(pImageCut(loadImage("background.jpg"), CENTER, CENTER, width, height));
   }
   
   public void setIsInitializedImages(boolean bool) {
@@ -31,6 +41,8 @@ public class LaunchingScreen {
   }
   
   public void draw() {
+    background.draw();
+    
     push();
     
     drawText(CENTER, BASELINE, state.GREEN_COLOR, 148, "DIGITAL SIGNAGE", width/2, height/2-380);

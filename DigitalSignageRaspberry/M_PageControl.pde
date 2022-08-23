@@ -6,7 +6,7 @@ class PageControlModule {
   void draw() {
     push();
     
-    float y = 1020;
+    float y = height-60;
     for (int page = 0; page < pages.size(); page++) {
       // ページ番号をもとに点を横に並べる
       float x = width/2 + 30 * (page-(pages.size()-1)/2.0);
