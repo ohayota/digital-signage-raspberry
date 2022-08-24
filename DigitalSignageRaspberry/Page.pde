@@ -14,10 +14,52 @@ class Page {
   
   public Page(processing.data.JSONObject PAGE_JSON) {
     this.PAGE_JSON = PAGE_JSON;
+    initialize();
+  }
+  
+  void update() {
+    for (OpenCloseRModule openClose: openCloseRModules) {
+      openClose.update();
+    }
+    for (TemperatureRModule temperature: temperatureRModules) {
+      temperature.update();
+    }
+    for (BrightnessRModule brightness: brightnessRModules) {
+      brightness.update();
+    }
+    
+    // 日付が更新されたら実行する
+    if (dateModule.isUpdatedDay) {
+      dateModule.updateYoubi();
+      
+      for (BusRModule bus: busRModules) {
+        bus.update();
+      }
+      for (GomiRModule gomi: gomiRModules) {
+        gomi.update();
+      }
+    }
+    
+    // 1秒間隔で実行する
+    if (dateModule.isUpdatedSecond) {
+      if (dateModule.isUpdatedMinute) {
+        for (BusRModule bus: busRModules) {
+          bus.refleshTop2();
+        }
+      }
+      if (dateModule.isUpdatedHour) {
+        for (WeatherRModule weather: weatherRModules) {
+          weather.update();
+        }
+        for (TwitterRModule twitter: twitterRModules) {
+          twitter.update();
+        }
+      }
+    }
   }
   
   void initialize() {
-    String backgroundPATH = PAGE_JSON.getJSONObject("FullImage").getString("PATH");
+    String backgroundPATH = PAGE_JSON.getString("FullImage");
     background = new FullImageModule(pImageCut(loadImage(backgroundPATH), CENTER, CENTER, width, height));
     
     processing.data.JSONArray rmArray;
@@ -26,8 +68,7 @@ class Page {
     rmArray = PAGE_JSON.getJSONArray(RModule.Bus.getName());
     if (rmArray != null) {
       for (int i = 0; i < rmArray.size(); i++) {
-        BusRModule rm = new BusRModule(rmArray.getJSONObject(i));
-        busRModules.add(rm);
+        busRModules.add( new BusRModule(rmArray.getJSONObject(i)) );
       }
     }
     
@@ -35,8 +76,7 @@ class Page {
     rmArray = PAGE_JSON.getJSONArray(RModule.Gomi.getName());
     if (rmArray != null) {
       for (int i = 0; i < rmArray.size(); i++) {
-        GomiRModule rm = new GomiRModule(rmArray.getJSONObject(i));
-        gomiRModules.add(rm);
+        gomiRModules.add( new GomiRModule(rmArray.getJSONObject(i)) );
       }
     }
     
@@ -44,8 +84,7 @@ class Page {
     rmArray = PAGE_JSON.getJSONArray(RModule.Weather.getName());
     if (rmArray != null) {
       for (int i = 0; i < rmArray.size(); i++) {
-        WeatherRModule rm = new WeatherRModule(rmArray.getJSONObject(i));
-        weatherRModules.add(rm);
+        weatherRModules.add( new WeatherRModule(rmArray.getJSONObject(i)) );
       }
     }
     
@@ -53,8 +92,7 @@ class Page {
     rmArray = PAGE_JSON.getJSONArray(RModule.Twitter.getName());
     if (rmArray != null) {
       for (int i = 0; i < rmArray.size(); i++) {
-        TwitterRModule rm = new TwitterRModule(rmArray.getJSONObject(i));
-        twitterRModules.add(rm);
+        twitterRModules.add( new TwitterRModule(rmArray.getJSONObject(i)) );
       }
     }
     
@@ -62,8 +100,7 @@ class Page {
     rmArray = PAGE_JSON.getJSONArray(RModule.Temperature.getName());
     if (rmArray != null) {
       for (int i = 0; i < rmArray.size(); i++) {
-        TemperatureRModule rm = new TemperatureRModule(rmArray.getJSONObject(i));
-        temperatureRModules.add(rm);
+        temperatureRModules.add( new TemperatureRModule(rmArray.getJSONObject(i)) );
       }
     }
     
@@ -71,8 +108,7 @@ class Page {
     rmArray = PAGE_JSON.getJSONArray(RModule.Brightness.getName());
     if (rmArray != null) {
       for (int i = 0; i < rmArray.size(); i++) {
-        BrightnessRModule rm = new BrightnessRModule(rmArray.getJSONObject(i));
-        brightnessRModules.add(rm);
+        brightnessRModules.add( new BrightnessRModule(rmArray.getJSONObject(i)) );
       }
     }
     
@@ -80,8 +116,7 @@ class Page {
     rmArray = PAGE_JSON.getJSONArray(RModule.OpenClose.getName());
     if (rmArray != null) {
       for (int i = 0; i < rmArray.size(); i++) {
-        OpenCloseRModule rm = new OpenCloseRModule(rmArray.getJSONObject(i));
-        openCloseRModules.add(rm);
+        openCloseRModules.add( new OpenCloseRModule(rmArray.getJSONObject(i)) );
       }
     }
   }

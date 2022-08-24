@@ -14,7 +14,9 @@ class State {
   final color GRAY_COLOR;
   final color GREEN_COLOR;
   
-  public State(processing.data.JSONObject json) {
+  public State() {
+    processing.data.JSONObject json = loadJSONObject("setting.json").getJSONObject("State");
+    
     this.STAY_SECOND = json.getInt("STAY_SECOND");
     this.SHADOW_ALPHA = json.getInt("SHADOW_ALPHA");
     this.SHADOW_PADDING = json.getInt("SHADOW_PADDING");
