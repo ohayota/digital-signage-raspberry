@@ -46,16 +46,11 @@ void setup() {
   frameRate(1);
   noCursor();
   colorMode(HSB, 360, 100, 100, 100);
-  
-  pages = new ArrayList<Page>();
-  
-  final processing.data.JSONObject stateSettingJSON = loadJSONObject("setting.json").getJSONObject("State");
-  state = new State(stateSettingJSON);
-  
   // OSによりインストールしたフォントの名称が微妙に異なるため、必要な方のみ使う
   textFont(createFont("NotoSansCJKjp-Bold", 32)); // Mac
   //textFont(createFont("Noto Sans CJK jp Bold", 32)); // RasPi
   
+  state = new State();
   launchingScreen = new LaunchingScreen();
   if (TEST_MODE) {
     //test();
@@ -63,80 +58,22 @@ void setup() {
   }
   
   thread("initialize");
-} //<>// //<>//
- //<>// //<>//
-
-void draw() {
-  if (state.getNowPageID() == -1) { //<>// //<>//
-    launchingScreen.draw(); //<>// //<>//
-  } else {
-    updateDatas();
-    pages.get(state.getNowPageID()).draw();
-  }
 }
 
-void updateDatas() {
-  dateModule.updateDate();
-  
-  for (Page page: pages) {
-    for (OpenCloseRModule openClose: page.openCloseRModules) {
-      openClose.update();
-    }
-    for (TemperatureRModule temperature: page.temperatureRModules) {
-      temperature.update();
-    }
-    for (BrightnessRModule brightness: page.brightnessRModules) {
-      brightness.update();
-    }
-  }
-  
-  final boolean isUpdatedSecond = (dateModule.second != dateModule.beforeSecond);
-  final boolean isUpdatedMinute = (dateModule.minute != dateModule.beforeMinute);
-  final boolean isUpdatedDay = (dateModule.day != dateModule.beforeDay);
-  
-  // 日付が更新されたら実行する
-  if (isUpdatedDay) {
-    println("日付が変わりました。");
-    dateModule.updateYoubi();
-    
+
+void draw() {
+  if (state.getNowPageID() == -1) {
+    launchingScreen.draw(); //<>//
+  } else { //<>//
+    dateModule.updateDate();
     for (Page page: pages) {
-      for (BusRModule bus: page.busRModules) {
-        bus.update();
-      }
-      for (GomiRModule gomi: page.gomiRModules) {
-        gomi.update();
-      }
-    }
-    
-    dateModule.updateBeforeDay();
-  }
-  
-  // 1秒間隔で実行する
-  if (isUpdatedSecond) {
-    if (dateModule.second % state.STAY_SECOND == 0) {
+      page.update(); //<>//
+    } //<>//
+    if (dateModule.second % state.STAY_SECOND == 0 && dateModule.isUpdatedSecond) {
       state.updateNowPageID(true);
     }
-    if (isUpdatedMinute) {
-      for (Page page: pages) {
-        for (BusRModule bus: page.busRModules) {
-          bus.refleshTop2();
-        }
-      }
-      dateModule.updateBeforeMinute();
-    }
-    if (dateModule.minute + dateModule.second == 0) {
-      println(dateModule.hour + "時になりました。");
-      for (Page page: pages) {
-        for (WeatherRModule weather: page.weatherRModules) {
-          weather.update();
-        }
-        for (TwitterRModule twitter: page.twitterRModules) {
-          twitter.update();
-        }
-      }
-    }
     
-    dateModule.updateBeforeSecond();
+    pages.get(state.getNowPageID()).draw();
   }
 }
 

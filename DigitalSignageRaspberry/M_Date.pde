@@ -7,10 +7,16 @@ public class DateModule {
   private int minute;
   private int second;
   private int beforeDay;
+  private int beforeHour;
   private int beforeMinute;
   private int beforeSecond;
   private boolean isHoliday;
   private Youbi youbi;
+  
+  boolean isUpdatedDay = false;
+  boolean isUpdatedHour = false;
+  boolean isUpdatedMinute = false;
+  boolean isUpdatedSecond = false;
   
   public DateModule() {
     initialize();
@@ -19,6 +25,7 @@ public class DateModule {
   public void initialize() {
     updateDate();
     updateBeforeDay();
+    updateBeforeHour();
     updateBeforeMinute();
     updateBeforeSecond();
     updateYoubi();
@@ -31,10 +38,34 @@ public class DateModule {
     hour = hour();
     minute = minute();
     second = second();
+    
+    isUpdatedDay = (day != beforeDay);
+    if (isUpdatedDay) {
+      println(day + "日");
+    }
+    isUpdatedHour = (hour != beforeHour);
+    if (minute + second == 0) {
+      println(hour + "時");
+    }
+    isUpdatedMinute = (minute != beforeMinute);
+    if (isUpdatedMinute) {
+      println(minute + "分");
+    }
+    isUpdatedSecond = (second != beforeSecond);
+    if (isUpdatedSecond) {
+      println(second + "秒");
+    }
+    updateBeforeDay();
+    updateBeforeMinute();
+    updateBeforeSecond();
   }
   
   public void updateBeforeDay() {
     beforeDay = day;
+  }
+  
+  public void updateBeforeHour() {
+    beforeHour = hour;
   }
   
   public void updateBeforeMinute() {
