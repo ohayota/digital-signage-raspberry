@@ -37,8 +37,8 @@ ArrayList<Page> pages;
 
 
 void settings() {
-  //size(1920, 1080);
-  fullScreen();
+  size(1920, 1080);
+  //fullScreen();
 }
 
 
@@ -63,12 +63,12 @@ void setup() {
   }
   
   thread("initialize");
-} //<>//
- //<>//
+} //<>// //<>//
+ //<>// //<>//
 
 void draw() {
-  if (state.getNowPageID() == -1) { //<>//
-    launchingScreen.draw(); //<>//
+  if (state.getNowPageID() == -1) { //<>// //<>//
+    launchingScreen.draw(); //<>// //<>//
   } else {
     updateDatas();
     pages.get(state.getNowPageID()).draw();

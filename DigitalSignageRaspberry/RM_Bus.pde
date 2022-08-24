@@ -49,30 +49,32 @@ class BusRModule extends RModuleClass {
     nearly2BusLineNames = new ArrayList<String>();
     
     int count = 0;
-    for (int i = 0; i < lineNames.length; i++) {
-      if (dateModule.hour == departureHours[i]) {
-        // すでに出発した便は飛ばす
-        if (departureMinutes[i] < dateModule.minute) continue;
-        String time = nf(departureHours[i], 2) + ":" + nf(departureMinutes[i], 2);
-        int remainMinute = departureMinutes[i] - dateModule.minute;
+    if (lineNames != null) {
+      for (int i = 0; i < lineNames.length; i++) {
+        if (dateModule.hour == departureHours[i]) {
+          // すでに出発した便は飛ばす
+          if (departureMinutes[i] < dateModule.minute) continue;
+          String time = nf(departureHours[i], 2) + ":" + nf(departureMinutes[i], 2);
+          int remainMinute = departureMinutes[i] - dateModule.minute;
+          
+          nearly2BusTimeString.add(time);
+          nearly2BusRemainMinutes.add(remainMinute);
+          nearly2BusLineNames.add(lineNames[i]);
+          count++;
+        }
+        if (dateModule.hour < departureHours[i]) {
+          String time = nf(departureHours[i], 2) + ":" + nf(departureMinutes[i], 2);
+          int remainMinute = (departureHours[i] - dateModule.hour)*60 + (departureMinutes[i] - dateModule.minute);
+          
+          nearly2BusTimeString.add(time);
+          nearly2BusRemainMinutes.add(remainMinute);
+          nearly2BusLineNames.add(lineNames[i]);
+          count++;
+        }
         
-        nearly2BusTimeString.add(time);
-        nearly2BusRemainMinutes.add(remainMinute);
-        nearly2BusLineNames.add(lineNames[i]);
-        count++;
+        // 表示する2件が揃ったらこれ以降のダイヤは見ない
+        if (count == 2) break;
       }
-      if (dateModule.hour < departureHours[i]) {
-        String time = nf(departureHours[i], 2) + ":" + nf(departureMinutes[i], 2);
-        int remainMinute = (departureHours[i] - dateModule.hour)*60 + (departureMinutes[i] - dateModule.minute);
-        
-        nearly2BusTimeString.add(time);
-        nearly2BusRemainMinutes.add(remainMinute);
-        nearly2BusLineNames.add(lineNames[i]);
-        count++;
-      }
-      
-      // 表示する2件が揃ったらこれ以降のダイヤは見ない
-      if (count == 2) break;
     }
   }
   
